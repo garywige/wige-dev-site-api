@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  web-app:
+    container_name: web
+    build:
+      context: ./web-app
+      dockerfile: nginx.Dockerfile
+    ports:
+      - '8080:80'
+    links:
+      - server
+    depends_on:
+      - server
+  server:
+    container_name: server
+    ports:
+      - '3000:3000'
