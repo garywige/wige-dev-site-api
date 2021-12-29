@@ -1,0 +1,49 @@
+version: 2.1
+orbs:
+  coveralls: coveralls/coveralls@1.0.4
+jobs:
+  build_server:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/repo/server
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          keys:
+            - web-modules-{{ checksum "package-lock.json" }}
+      # check npm dependencies for security risks
+      - run: npx audit-ci --high --report-type full
+      - run: npm ci
+      - save_cache:
+          key: web-modules-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - run: npm run style
+      - run: npm run lint
+      # run tests and store test results
+      - run: npm run pretest
+      - run: npm run test:ci
+      - store_test_results:
+          path: ./test_results
+      # run code coverage and store coverage report
+      - run: npm run test:nyc
+      - store_artifacts:
+          path: ./coverage
+      - coveralls/upload
+      - run:
+          name: Move compiled app to workspace
+          command: |
+            set -exu
+            mkdir -p /tmp/workspace/server
+            mv dist /tmp/workspace/server
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - server
+
+workflows:
+  version: 2
+  build-and-test-compose:
+    jobs:
+      - build_server
