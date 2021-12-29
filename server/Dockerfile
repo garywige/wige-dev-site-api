@@ -25,4 +25,4 @@ EXPOSE 3000
 ADD dist dist
 
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["node", "dist/src/index"]
+CMD ["node", "dist/index"]
