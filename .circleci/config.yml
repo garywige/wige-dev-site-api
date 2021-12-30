@@ -49,6 +49,7 @@ jobs:
     steps:
       - checkout:
           path: ~/repo
+      - run: npm install
       - run: npm run webapp:init
       - run: npm run build:prod --prefix ./web-app
       - run: npm run test:nowatch --prefix ./web-app
