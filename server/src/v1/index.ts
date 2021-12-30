@@ -1,10 +1,10 @@
 import {Router} from 'express'
 
-import email from './email'
+import contactus from './contactus'
 
 const router = Router()
 
 // configure api routers here
-router.use('email', email)
+router.use('/contactus', contactus)
 
 export default router
