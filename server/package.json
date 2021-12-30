@@ -78,5 +78,10 @@
     "imageName": "wige-dev-site-api",
     "imagePort": "3000",
     "internalContainerPort": "3000"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "morgan": "^1.10.0"
   }
 }
