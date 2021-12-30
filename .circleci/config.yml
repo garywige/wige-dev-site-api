@@ -102,8 +102,8 @@ jobs:
           name: Verify server
           command: |
             set -x
-            docker run --network container:wige-dev-server jwilder/dockerize -wait http://localhost:3000
-            docker run --network container:wige-dev-server appropriate/curl http://localhost:3000
+            docker run --network container:server jwilder/dockerize -wait http://localhost:3000
+            docker run --network container:server appropriate/curl http://localhost:3000
 
 workflows:
   version: 2
