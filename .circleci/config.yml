@@ -42,8 +42,76 @@ jobs:
           paths:
             - server
 
+  build_webapp:
+    docker:
+      - image: circleci/node:lts-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout:
+          path: ~/repo
+      - run: npm run modules:init
+      - run: npm install --prefix ./web-app
+      - run: npm run build:prod --prefix ./web-app
+      - run: npm run test:nowatch --prefix ./web-app
+      - run:
+          name: Move compiled front-end to workspace
+          command: |
+            set -exu
+            mkdir -p /tmp/workspace/web-app
+            mv ./web-app/dist /tmp/workspace/web-app
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - web-app
+
+  test_compose:
+    docker:
+      - image: circleci/node:lts-browsers
+    working_directory: ~/repo
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout:
+          path: ~/repo
+      - run: npm run modules:init
+      - run:
+          name: Copy built server to server/dist folder
+          command: cp -avR /tmp/workspace/server/dist/ ./server
+      - run:
+          name: Copy built web-app to web-app/dist folder
+          command: cp -avR /tmp/workspace/web-app/dist/ ./web-app
+      #- run:
+      #    name: Restore .env files
+      #    command: |
+      #      set +H
+      #      echo -e $PROJECT_DOT_ENV > .env
+      #      echo -e $SERVER_DOT_ENV > server/.env
+      - run:
+          name: Compose up
+          command: |
+            set -x
+            docker-compose up -d
+      - run:
+          name: Verify web app
+          command: |
+            set -x
+            docker run --network container:web jwilder/dockerize -wait http://localhost:80
+            docker run --network container:web appropriate/curl http://localhost:80
+      #- run:
+      #    name: Verify server
+      #    command: |
+      #      set -x
+      #      docker run --network container:server jwilder/dockerize -wait http://localhost:3000
+      #      docker run --network container:server appropriate/curl http://localhost:3000
+
 workflows:
   version: 2
   build-and-test-compose:
     jobs:
       - build_server
+      - build_webapp
+      - test_compose:
+          requires:
+            - build_server
+            - build_webapp

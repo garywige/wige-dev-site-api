@@ -11,7 +11,15 @@
     "webapp:init": "cross-conf-env git submodule add $npm_package_config_webAppGitUrl web-app",
     "postwebapp:init": "git submodule status web-app",
     "modules:init": "git submodule update --init --recursive",
-    "modules:update": "git submodule update --recursive --remote"
+    "modules:update": "git submodule update --recursive --remote",
+    "build": "npm run build --prefix ./server && npm run build --prefix ./web-app",
+    "test": "npm test --prefix ./server && npm test --prefix ./web-app -- --watch=false",
+    "prestart": "npm run build && docker-compose build",
+    "start": "docker-compose up",
+    "stop": "docker-compose down",
+    "clean": "docker-compose rm",
+    "clean:all": "docker system prune --volumes",
+    "start:backend": "docker-compose -f docker-compose.backend.yml up --build"
   },
   "repository": {
     "type": "git",

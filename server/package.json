@@ -19,7 +19,21 @@
     "build:test": "tsc -p tests/tsconfig.spec.json",
     "test:ci": "ts-node ./node_modules/jasmine-xml-reporter/bin/jasmine.js --config=./jasmine.json --junitreport --output=test_results/",
     "test:nyc": "nyc node_modules/ts-node/dist/bin.js node_modules/jasmine/bin/jasmine --config=./jasmine.json --cache=false",
-    "init:env": "init-dev-env generate-dot-env example.env -f"
+    "init:env": "init-dev-env generate-dot-env example.env -f",
+    "predocker:build": "npm run build",
+    "docker:build": "cross-conf-env docker image build . -t $npm_package_config_imageRepo:$npm_package_version",
+    "postdocker:build": "npm run docker:tag",
+    "docker:tag": " cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest",
+    "docker:stop": "cross-conf-env docker stop $npm_package_config_imageName || true",
+    "docker:run": "run-s -c docker:stop docker:runHelper",
+    "docker:runHelper": "cross-conf-env docker run -e NODE_ENV=local --rm --name $npm_package_config_imageName -d -p $npm_package_config_imagePort:$npm_package_config_internalContainerPort $npm_package_config_imageRepo",
+    "predocker:publish": "echo Attention! Ensure `docker login` information is correct.",
+    "docker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo:$npm_package_version",
+    "postdocker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo:latest",
+    "docker:taillogs": "echo Web Server Logs: && cross-conf-env docker logs -f $npm_package_config_imageName",
+    "docker:open": "sleep 2 && cross-conf-env open-cli http://localhost:$npm_package_config_imagePort",
+    "docker:debugmessage": "echo Docker Debug Completed Successfully! Hit Ctrl+C to terminate log tailing.",
+    "docker:debug": "run-s -cs docker:build docker:run docker:open docker:debugmessage docker:taillogs"
   },
   "keywords": [],
   "author": "",
@@ -41,6 +55,7 @@
     "jasmine-xml-reporter": "^1.2.1",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
+    "open-cli": "^7.0.1",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.21",
@@ -57,5 +72,11 @@
       "style": "module",
       "options": {}
     }
+  },
+  "config": {
+    "imageRepo": "garywige/wige-dev-site-api",
+    "imageName": "wige-dev-site-api",
+    "imagePort": "3000",
+    "internalContainerPort": "3000"
   }
 }
