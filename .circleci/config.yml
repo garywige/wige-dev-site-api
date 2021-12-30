@@ -59,6 +59,10 @@ jobs:
             set -exu
             mkdir -p /tmp/workspace/web-app
             mv ./web-app/dist /tmp/workspace/web-app
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - web-app
 
   test_compose:
     docker:
