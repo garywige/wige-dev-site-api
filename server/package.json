@@ -36,8 +36,18 @@
     "docker:debug": "run-s -cs docker:build docker:run docker:open docker:debugmessage docker:taillogs"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gary Wige",
   "license": "ISC",
+  "dependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
+    "cors": "^2.8.5",
+    "D": "^1.0.0",
+    "express": "^4.17.2",
+    "morgan": "^1.10.0",
+    "webpack": "^5.65.0"
+  },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/jasmine": "^3.10.2",
@@ -78,15 +88,5 @@
     "imageName": "wige-dev-site-api",
     "imagePort": "3000",
     "internalContainerPort": "3000"
-  },
-  "dependencies": {
-    "@types/cors": "^2.8.12",
-    "@types/express": "^4.17.13",
-    "@types/morgan": "^1.9.3",
-    "cors": "^2.8.5",
-    "D": "^1.0.0",
-    "express": "^4.17.2",
-    "morgan": "^1.10.0",
-    "webpack": "^5.65.0"
   }
 }
