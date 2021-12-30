@@ -50,6 +50,7 @@ jobs:
       - checkout:
           path: ~/repo
       - run: npm run modules:init
+      - run: npm install --prefix ./web-app
       - run: npm run build:prod --prefix ./web-app
       - run: npm run test:nowatch --prefix ./web-app
       - run:
