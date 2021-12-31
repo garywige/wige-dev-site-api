@@ -5,8 +5,6 @@ import {
   sendContactUs,
   validateContactUsForm,
 } from '../../services/emailService'
-import swaggerJSDoc = require('swagger-jsdoc')
-
 
 const router = Router()
 
