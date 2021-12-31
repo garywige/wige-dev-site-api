@@ -81,12 +81,12 @@ jobs:
       - run:
           name: Copy built web-app to web-app/dist folder
           command: cp -avR /tmp/workspace/web-app/dist/ ./web-app
-      #- run:
-      #    name: Restore .env files
-      #    command: |
-      #      set +H
-      #      echo -e $PROJECT_DOT_ENV > .env
-      #      echo -e $SERVER_DOT_ENV > server/.env
+      - run:
+          name: Restore .env files
+          command: |
+            set +H
+            echo -e $SENDGRID_API_KEY > server/.env
+            echo -e $SITE_OWNER_EMAIL > server/.env
       - run:
           name: Compose up
           command: |
