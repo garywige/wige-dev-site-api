@@ -4,10 +4,35 @@ class EmailService{
   constructor(){}
 
   async sendContactUs(form: IContactUsForm): Promise<boolean> {
-    console.log(
-      `sendContactUs() called: email address: ${form.email}, subject: ${form.subject}`
-    )
-    return true
+    const sgMail = require('@sendgrid/mail')
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+    const msg = {
+      to: process.env.SITE_OWNER_EMAIL,
+      from: process.env.SITE_OWNER_EMAIL,
+      subject: 'Wige-Dev Contact Us Submission',
+      text: `
+        Email: ${form.email}
+        Subject: ${form.subject}
+        Message: ${form.message}
+      `,
+    }
+
+    let result: boolean = true
+
+    await sgMail
+    .send(msg)
+    .then(() => {}, (error: { response: { body: any } }) => {
+      console.error(error);
+
+      if (error.response) {
+        console.error(error.response.body)
+      }
+
+      result = false
+    })
+
+    return result
   }
   
   async validateContactUsForm(reqBody: any): Promise<boolean> {

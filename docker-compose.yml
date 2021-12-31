@@ -13,6 +13,7 @@ services:
       - server
   server:
     container_name: server
+    env_file: './server/.env'
     build: server
     ports:
       - '3000:3000'

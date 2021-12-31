@@ -2,6 +2,7 @@ version: '3.7'
 services:
   server:
     container_name: server
+    env_file: './server/.env'
     build: server
     ports:
       - '3000:3000'
