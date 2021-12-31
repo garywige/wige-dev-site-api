@@ -89,24 +89,10 @@ const options: Options = {
               },
             },
             400: {
-              description: 'Request body is in improper format',
-              content: {
-                'application/json': {
-                  schema: {
-                    $ref: '#/components/responses/BadFormatError',
-                  },
-                },
-              },
+              $ref: '#/components/responses/BadFormatError',
             },
             500: {
-              description: 'Message failed to send',
-              content: {
-                'application/json': {
-                  schema: {
-                    $ref: '#/components/responses/InternalError',
-                  },
-                },
-              },
+              $ref: '#/components/responses/InternalError',
             },
           },
         },
