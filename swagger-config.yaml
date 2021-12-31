@@ -61,7 +61,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ContactUsForm'
         '400':
-          description: Request body is in inproper format
+          description: Request body is in improper format
           content:
             application/json:
               schema:
