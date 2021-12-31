@@ -1,8 +1,7 @@
 import {
-  IContactUsForm,
-  sendContactUs,
-  validateContactUsForm,
+  emailService
 } from '../src/services/emailService'
+import { IContactUsForm } from '../src/services/interfaces/contact-us-form'
 
 describe('emailService', () => {
   const goodInput: IContactUsForm = {
@@ -14,19 +13,19 @@ describe('emailService', () => {
   describe('validateContactUsForm', () => {
     it('should return false with invalid input.', async () => {
       const badInput: any = { input: 'bad', bad: true }
-      const result: boolean = await validateContactUsForm(badInput)
+      const result: boolean = await emailService.validateContactUsForm(badInput)
       expect(result).toEqual(false)
     })
 
     it('should return true with valid input', async () => {
-      const result: boolean = await validateContactUsForm(goodInput)
+      const result: boolean = await emailService.validateContactUsForm(goodInput)
       expect(result).toEqual(true)
     })
   })
 
   describe('sendContactUs', () => {
     it('should return true with valid input', async () => {
-      const result: boolean = await sendContactUs(goodInput)
+      const result: boolean = await emailService.sendContactUs(goodInput)
       expect(result).toEqual(true)
     })
   })
