@@ -1,16 +1,14 @@
 import * as swaggerJsdoc from 'swagger-jsdoc'
 import { Options } from 'swagger-jsdoc'
 
-import * as packageJson from '../package.json'
-
 const options: Options = {
     swaggerDefinition: {
         openapi: '3.0.1',
         components: {},
         info: {
-            title: packageJson.name,
-            version: packageJson.version,
-            description: packageJson.description
+            title: 'wige-dev-site-api',
+            version: '1.0.0',
+            description: 'back-end API for wige-dev-site'
         },
         servers: [
             {

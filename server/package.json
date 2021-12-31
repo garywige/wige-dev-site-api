@@ -13,7 +13,7 @@
     "prestart": "npm run build",
     "start": "env-cmd node dist/index.js",
     "prebuild": "rimraf dist",
-    "build": "tsc -p tsconfig.src.json && npm run postbuild",
+    "build": "tsc -p tsconfig.src.json",
     "postbuild": "rm -rf dist/public && cp -R ./src/public ./dist",
     "prepublishOnly": "npm run test",
     "prepare": "npm run build",
