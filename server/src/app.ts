@@ -6,7 +6,7 @@ import * as logger from 'morgan'
 import * as swaggerUi from 'swagger-ui-express'
 
 import api from './api'
-import { specs } from './docs-config'
+import { specs } from './swagger-config'
 
 const app = express()
 
