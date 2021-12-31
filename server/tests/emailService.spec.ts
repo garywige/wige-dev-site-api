@@ -20,11 +20,12 @@ describe('emailService', () => {
       expect(result).toEqual(true)
     })
   })
-
+  /*
   describe('sendContactUs', () => {
     it('should return true with valid input', async () => {
       const result: boolean = await emailService.sendContactUs(goodInput)
       expect(result).toEqual(true)
     })
   })
+  */
 })
