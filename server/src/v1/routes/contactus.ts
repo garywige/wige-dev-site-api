@@ -5,8 +5,12 @@ import {
   sendContactUs,
   validateContactUsForm,
 } from '../../services/emailService'
+import swaggerJSDoc = require('swagger-jsdoc')
+
 
 const router = Router()
+
+
 
 router.post('/', async (req: Request, res: Response) => {
   if ((await validateContactUsForm(req.body)) === false) {
