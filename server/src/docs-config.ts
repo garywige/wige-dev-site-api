@@ -13,14 +13,6 @@ const options: Options = {
             {
                 url: 'http://localhost:3000',
                 description: 'Local environment'
-            },
-            {
-                url: 'https://mystagingserver.com',
-                description: 'Staging environment'
-            },
-            {
-                url: 'https://myprodserver.com',
-                description: 'Production environment'
             }
         ],
         components: {
