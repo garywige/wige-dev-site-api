@@ -16,10 +16,10 @@
     "test": "npm test --prefix ./server && npm test --prefix ./web-app -- --watch=false",
     "prestart": "npm run build && docker-compose build",
     "start": "docker-compose up",
+    "start:backend": "docker-compose -f docker-compose.backend.yml up --build",
     "stop": "docker-compose down",
     "clean": "docker-compose rm",
-    "clean:all": "docker system prune --volumes",
-    "start:backend": "docker-compose -f docker-compose.backend.yml up --build"
+    "clean:all": "docker system prune --volumes"
   },
   "repository": {
     "type": "git",

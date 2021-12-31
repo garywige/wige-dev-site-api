@@ -13,7 +13,8 @@
     "prestart": "npm run build",
     "start": "env-cmd node dist/index.js",
     "prebuild": "rimraf dist",
-    "build": "tsc -p tsconfig.src.json",
+    "build": "tsc -p tsconfig.src.json && npm run postbuild",
+    "postbuild": "rm -rf dist/public && cp -R ./src/public ./dist",
     "prepublishOnly": "npm run test",
     "prepare": "npm run build",
     "build:test": "tsc -p tests/tsconfig.spec.json",
@@ -36,9 +37,18 @@
     "docker:debug": "run-s -cs docker:build docker:run docker:open docker:debugmessage docker:taillogs"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gary Wige",
   "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "morgan": "^1.10.0"
+  },
   "devDependencies": {
+
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/jasmine": "^3.10.2",
     "@types/node": "^17.0.5",
