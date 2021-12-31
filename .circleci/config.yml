@@ -98,12 +98,12 @@ jobs:
             set -x
             docker run --network container:web jwilder/dockerize -wait http://localhost:80
             docker run --network container:web appropriate/curl http://localhost:80
-      #- run:
-      #    name: Verify server
-      #    command: |
-      #      set -x
-      #      docker run --network container:server jwilder/dockerize -wait http://localhost:3000
-      #      docker run --network container:server appropriate/curl http://localhost:3000
+      - run:
+          name: Verify server
+          command: |
+            set -x
+            docker run --network container:server jwilder/dockerize -wait http://localhost:3000
+            docker run --network container:server appropriate/curl http://localhost:3000
 
 workflows:
   version: 2

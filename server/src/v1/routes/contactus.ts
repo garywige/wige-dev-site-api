@@ -4,7 +4,7 @@ import {
   IContactUsForm,
   sendContactUs,
   validateContactUsForm,
-} from '../services/emailService'
+} from '../../services/emailService'
 
 const router = Router()
 

@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import contactus from './contactus'
+import contactus from './routes/contactus'
 
 const router = Router()
 
