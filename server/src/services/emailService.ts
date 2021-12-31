@@ -1,4 +1,5 @@
 export async function sendContactUs(form: IContactUsForm): Promise<boolean> {
+  console.log(`sendContactUs() called: email address: ${form.email}, subject: ${form.subject}`)
   return true
 }
 
