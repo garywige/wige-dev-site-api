@@ -8,8 +8,6 @@ import {
 
 const router = Router()
 
-
-
 router.post('/', async (req: Request, res: Response) => {
   if ((await validateContactUsForm(req.body)) === false) {
     res.status(400).send({ message: 'Request was in improper format.' })
