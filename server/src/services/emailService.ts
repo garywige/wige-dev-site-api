@@ -1,7 +1,7 @@
-import { IContactUsForm } from "./interfaces/contact-us-form"
+import { IContactUsForm } from './interfaces/contact-us-form'
 
-class EmailService{
-  constructor(){}
+class EmailService {
+  constructor() {}
 
   async sendContactUs(form: IContactUsForm): Promise<boolean> {
     const sgMail = require('@sendgrid/mail')
@@ -18,27 +18,28 @@ class EmailService{
       `,
     }
 
-    let result: boolean = true
+    let result = true
 
-    await sgMail
-    .send(msg)
-    .then(() => {}, (error: { response: { body: any } }) => {
-      console.error(error);
+    await sgMail.send(msg).then(
+      () => {},
+      (error: { response: { body: any } }) => {
+        console.error(error)
 
-      if (error.response) {
-        console.error(error.response.body)
+        if (error.response) {
+          console.error(error.response.body)
+        }
+
+        result = false
       }
-
-      result = false
-    })
+    )
 
     return result
   }
-  
+
   async validateContactUsForm(reqBody: any): Promise<boolean> {
     if (!('email' in reqBody) || !('subject' in reqBody) || !('message' in reqBody))
       return false
-  
+
     return true
   }
 }

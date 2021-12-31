@@ -89,10 +89,10 @@ const options: Options = {
               },
             },
             400: {
-              $ref: '#/components/responses/BadFormatError'
+              $ref: '#/components/responses/BadFormatError',
             },
             500: {
-              $ref: '#/components/responses/InternalError'
+              $ref: '#/components/responses/InternalError',
             },
           },
         },

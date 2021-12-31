@@ -1,8 +1,6 @@
 import { Request, Response, Router } from 'express'
 
-import {
-  emailService
-} from '../../services/emailService'
+import { emailService } from '../../services/emailService'
 import { IContactUsForm } from '../../services/interfaces/contact-us-form'
 import { IServerMessage } from '../../services/interfaces/server-message'
 
@@ -10,7 +8,9 @@ const router = Router()
 
 router.post('/', async (req: Request, res: Response) => {
   if ((await emailService.validateContactUsForm(req.body)) === false) {
-    res.status(400).send({ message: 'Request body is in improper format' } as IServerMessage)
+    res
+      .status(400)
+      .send({ message: 'Request body is in improper format' } as IServerMessage)
     return
   }
 

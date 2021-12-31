@@ -1,6 +1,4 @@
-import {
-  emailService
-} from '../src/services/emailService'
+import { emailService } from '../src/services/emailService'
 import { IContactUsForm } from '../src/services/interfaces/contact-us-form'
 
 describe('emailService', () => {
