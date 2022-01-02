@@ -9,8 +9,8 @@ RUN chmod +x /usr/local/bin/dumb-init
 RUN mkdir -p /usr/src/app
 COPY ./* /usr/src/app/
 
-RUN chown -R node: /usr/src/app
-USER node
+#RUN chown -R node: /usr/src/app
+#USER node
 
 WORKDIR /usr/src/app
 
@@ -22,7 +22,7 @@ ENV HOST "0.0.0.0"
 ENV PORT 3000
 EXPOSE 3000
 
-ADD dist dist
+#ADD dist dist
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "dist/index"]
