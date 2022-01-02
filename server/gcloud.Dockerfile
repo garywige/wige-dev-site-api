@@ -1,28 +1,20 @@
-FROM node:lts-alpine
+# Stage 1: Compile and Build angular codebase
 
-RUN apk add --update --no-progress make python3 bash
-ENV NPM_CONFIG_LOGLEVEL error
+# Use official node image as the base image
+FROM node:lts
 
-ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64 /usr/local/bin/dumb-init
-RUN chmod +x /usr/local/bin/dumb-init
+# Set the working directory
+WORKDIR /usr/local/app
 
-RUN mkdir -p /usr/src/app
-COPY ./* /usr/src/app/
+# Add the source code to app
+COPY ./ /usr/local/app/
 
-#RUN chown -R node: /usr/src/app
-#USER node
-
-WORKDIR /usr/src/app
-
-RUN NODE_ENV=production
-
+# Install all the dependencies
 RUN npm install
 
+# expose 3000
 ENV HOST "0.0.0.0"
 ENV PORT 3000
 EXPOSE 3000
 
-#ADD dist dist
-
-ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "dist/index"]
