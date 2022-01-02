@@ -16,7 +16,7 @@ WORKDIR /usr/src/app
 
 RUN NODE_ENV=production
 
-RUN npm install --ignore-scripts
+RUN npm install
 
 ENV HOST "0.0.0.0"
 ENV PORT 3000
