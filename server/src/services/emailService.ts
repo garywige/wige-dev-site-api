@@ -1,7 +1,11 @@
 import { IContactUsForm } from './interfaces/contact-us-form'
 
 class EmailService {
-  constructor() {}
+  isTest: boolean
+
+  constructor() {
+    this.isTest = false
+  }
 
   async sendContactUs(form: IContactUsForm): Promise<boolean> {
     const sgMail = require('@sendgrid/mail')
@@ -16,22 +20,27 @@ class EmailService {
         Subject: ${form.subject}
         Message: ${form.message}
       `,
+      mail_settings: {
+        sandbox_mode: {
+          enable: this.isTest,
+        },
+      },
     }
 
     let result = true
+    if (!this.isTest)
+      await sgMail.send(msg).then(
+        () => {},
+        (error: { response: { body: any } }) => {
+          console.error(error)
 
-    await sgMail.send(msg).then(
-      () => {},
-      (error: { response: { body: any } }) => {
-        console.error(error)
+          if (error.response) {
+            console.error(error.response.body)
+          }
 
-        if (error.response) {
-          console.error(error.response.body)
+          result = false
         }
-
-        result = false
-      }
-    )
+      )
 
     return result
   }

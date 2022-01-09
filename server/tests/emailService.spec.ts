@@ -20,12 +20,19 @@ describe('emailService', () => {
       expect(result).toEqual(true)
     })
   })
-  /*
+
   describe('sendContactUs', () => {
+    beforeEach(() => {
+      emailService.isTest = true
+      process.env = {
+        SENDGRID_API_KEY: 'SG.123456',
+        SITE_OWNER_EMAIL: 'test@testing.com',
+      }
+    })
+
     it('should return true with valid input', async () => {
       const result: boolean = await emailService.sendContactUs(goodInput)
       expect(result).toEqual(true)
     })
   })
-  */
 })
